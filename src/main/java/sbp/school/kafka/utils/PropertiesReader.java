@@ -15,6 +15,10 @@ public class PropertiesReader {
         return readPropertiesByFileName("kafkaSUProducer.properties");
     }
 
+    public static Properties getKafkaConsumerProperties() {
+        return readPropertiesByFileName("kafkaSUConsumer.properties");
+    }
+
     private static Properties readPropertiesByFileName(String name) {
         try (var resourcesStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name)) {
             var properties = new Properties();
