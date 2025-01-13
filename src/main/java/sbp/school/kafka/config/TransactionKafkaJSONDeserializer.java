@@ -10,6 +10,9 @@ import java.io.IOException;
 
 import static java.util.Objects.isNull;
 
+/**
+ * Kafka JSON Deserializer for Transaction model
+ */
 @Slf4j
 public class TransactionKafkaJSONDeserializer implements Deserializer<Transaction> {
 

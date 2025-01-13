@@ -13,6 +13,9 @@ import java.util.*;
 
 import static java.util.Objects.nonNull;
 
+/**
+ * Kafka S University Consumer
+ */
 @Slf4j
 public class KafkaSUConsumer {
     private final Properties properties;
