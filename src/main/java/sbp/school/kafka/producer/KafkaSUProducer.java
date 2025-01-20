@@ -30,7 +30,6 @@ public class KafkaSUProducer {
         try (var producer = new org.apache.kafka.clients.producer.KafkaProducer<String, Transaction>(kafkaProperties);) {
             var topicName = (String) kafkaProperties.get("topic");
             producer.send(new ProducerRecord<>(topicName, transaction), callback);
-            producer.flush();
         } catch (Exception e) {
             log.error("", e);
         }
