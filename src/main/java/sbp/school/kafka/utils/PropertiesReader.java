@@ -11,12 +11,16 @@ import java.util.Properties;
 @Slf4j
 public class PropertiesReader {
 
-    public static Properties getKafkaProducerProperties() {
+    public static Properties getKafkaSUProducerProperties() {
         return readPropertiesByFileName("kafkaSUProducer.properties");
     }
 
-    public static Properties getKafkaConsumerProperties() {
+    public static Properties getKafkaSUConsumerProperties() {
         return readPropertiesByFileName("kafkaSUConsumer.properties");
+    }
+
+    public static Properties getKafkaConfirmConsumerProperties() {
+        return readPropertiesByFileName("kafkaConfirmConsumer.properties");
     }
 
     private static Properties readPropertiesByFileName(String name) {

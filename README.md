@@ -66,3 +66,5 @@
 2) Start Kafka Server bin/kafka-server-start.sh config/server.properties
 3) Start Producer  bin/kafka-console-producer.sh --topic su_kafka --bootstrap-server localhost:9092          
 4) Start Consumer bin/kafka-console-consumer.sh --topic su_kafka --from-beginning --bootstrap-server localhost:9092
+5) Start Producer bin/kafka-console-producer.sh --topic confirm_kafka --bootstrap-server localhost:9092
+6) Start Consumer bin/kafka-console-consumer.sh --topic confirm_kafka --from-beginning --bootstrap-server localhost:9092
