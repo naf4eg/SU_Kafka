@@ -1,10 +1,7 @@
 package sbp.school.kafka.consumer;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.consumer.OffsetAndMetadata;
+import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
 import sbp.school.kafka.utils.PropertiesReader;
 
@@ -25,7 +22,7 @@ public class KafkaSUConsumer {
     private final Map<TopicPartition, OffsetAndMetadata> currentOffsets = new HashMap<>();
 
     public KafkaSUConsumer() {
-        this.properties = PropertiesReader.getKafkaConsumerProperties();
+        this.properties = PropertiesReader.getKafkaSUConsumerProperties();
         this.consumer = new KafkaConsumer<>(this.properties);
         this.topics = List.of(properties.getProperty("topic"));
     }
