@@ -8,7 +8,7 @@
     "amount" : {
       "type" : "number"
     },
-    "date" : {
+    "dateTime" : {
       "type" : "string"
     },
     "id" : {
@@ -17,6 +17,10 @@
     "operation" : {
       "type" : "string",
       "enum" : [ "DEBIT", "CREDIT", "BLOCK", "ARREST" ]
+    },
+    "status" : {
+      "type" : "string",
+      "enum" : [ "CREATED", "CONFIRMED", "NOT_CONFIRMED" ]
     }
   }
 }

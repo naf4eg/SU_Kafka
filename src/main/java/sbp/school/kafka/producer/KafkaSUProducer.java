@@ -6,6 +6,7 @@ import sbp.school.kafka.model.Transaction;
 import sbp.school.kafka.repository.InMemoryRepository;
 import sbp.school.kafka.utils.PropertiesReader;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Properties;
 
@@ -15,8 +16,7 @@ import java.util.Properties;
 @Slf4j
 public class KafkaSUProducer {
     private final Properties kafkaProperties;
-    private final Map<Long, Transaction> repository = InMemoryRepository.transactionByTimestamp;
-    ;
+    private static final Map<LocalDateTime, Transaction> dateTimeTransactionMap = InMemoryRepository.DATE_TIME_TRANSACTION_MAP;
 
     public KafkaSUProducer() {
         this.kafkaProperties = PropertiesReader.getKafkaSUProducerProperties();
@@ -32,10 +32,9 @@ public class KafkaSUProducer {
             var topicName = (String) kafkaProperties.get("topic");
 
             producer.send(new ProducerRecord<>(topicName, transaction), ((metadata, exception) -> {
-                var timestamp = metadata.timestamp();
-                repository.put(timestamp, transaction);
+                dateTimeTransactionMap.put(transaction.dateTime(), transaction);
+                log.info("==> Sent new Transaction: {}", transaction);
             }));
-
         } catch (Exception e) {
             log.error("", e);
         }
