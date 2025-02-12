@@ -1,4 +1,6 @@
 package sbp.school.kafka.model;
 
-public record ConfirmMessage(Integer hash, Long startTimestamp, Long endTimestamp) {
+import java.time.LocalDateTime;
+
+public record ConfirmMessage(Integer hash, LocalDateTime startDateTime, LocalDateTime endDateTime) {
 }
