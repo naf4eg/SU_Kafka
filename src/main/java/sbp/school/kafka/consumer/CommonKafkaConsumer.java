@@ -6,6 +6,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
+import sbp.school.kafka.model.Transaction;
 
 import java.time.Duration;
 import java.util.*;
@@ -81,4 +82,5 @@ public abstract class CommonKafkaConsumer<K, V> {
             }
         };
     }
+
 }

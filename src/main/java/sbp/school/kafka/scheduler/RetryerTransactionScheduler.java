@@ -16,7 +16,7 @@ public class RetryerTransactionScheduler {
     public static final int PERIOD = 10;
     public static final int INITIAL_DELAY = 10;
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-    private static final Map<LocalDateTime, Transaction> transactionByTimestamp = InMemoryRepository.DATE_TIME_TRANSACTION_MAP;
+    private static final Map<LocalDateTime, Transaction> transactionByTimestamp = InMemoryRepository.PRODUCER_DATE_TIME_TRANSACTION_MAP;
     private final KafkaSUProducer kafkaSUProducer;
 
     public RetryerTransactionScheduler() {

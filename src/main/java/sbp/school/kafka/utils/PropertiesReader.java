@@ -23,6 +23,14 @@ public class PropertiesReader {
         return readPropertiesByFileName("kafkaConfirmConsumer.properties");
     }
 
+    public static Properties getKafkaConfirmProducerProperties() {
+        return readPropertiesByFileName("kafkaConfirmProducer.properties");
+    }
+
+    public static Properties getAppProperties() {
+        return readPropertiesByFileName("app.properties");
+    }
+
     private static Properties readPropertiesByFileName(String name) {
         try (var resourcesStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name)) {
             var properties = new Properties();
