@@ -9,5 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class InMemoryRepository {
-    public static final Map<LocalDateTime, Transaction> DATE_TIME_TRANSACTION_MAP = new ConcurrentHashMap<>();
+    public static final Map<LocalDateTime, Transaction> PRODUCER_DATE_TIME_TRANSACTION_MAP = new ConcurrentHashMap<>();
+    public static final Map<LocalDateTime, Transaction> CONSUMER_DATE_TIME_TRANSACTION_MAP = new ConcurrentHashMap<>();
 }

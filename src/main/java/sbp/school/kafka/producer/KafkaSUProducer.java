@@ -16,7 +16,7 @@ import java.util.Properties;
 @Slf4j
 public class KafkaSUProducer {
     private final Properties kafkaProperties;
-    private static final Map<LocalDateTime, Transaction> dateTimeTransactionMap = InMemoryRepository.DATE_TIME_TRANSACTION_MAP;
+    private static final Map<LocalDateTime, Transaction> dateTimeTransactionMap = InMemoryRepository.PRODUCER_DATE_TIME_TRANSACTION_MAP;
 
     public KafkaSUProducer() {
         this.kafkaProperties = PropertiesReader.getKafkaSUProducerProperties();

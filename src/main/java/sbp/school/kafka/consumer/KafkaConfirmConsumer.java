@@ -20,7 +20,7 @@ import java.util.function.Function;
 @Slf4j
 public class KafkaConfirmConsumer extends CommonKafkaConsumer<String, ConfirmMessage> {
 
-    private static final Map<LocalDateTime, Transaction> transactionByDateTime = InMemoryRepository.DATE_TIME_TRANSACTION_MAP;
+    private static final Map<LocalDateTime, Transaction> transactionByDateTime = InMemoryRepository.PRODUCER_DATE_TIME_TRANSACTION_MAP;
 
     public KafkaConfirmConsumer() {
         super(PropertiesReader.getKafkaConfirmConsumerProperties());

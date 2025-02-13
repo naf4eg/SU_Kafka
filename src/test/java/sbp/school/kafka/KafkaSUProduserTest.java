@@ -42,7 +42,7 @@ public class KafkaSUProduserTest {
         new RetryerTransactionScheduler().retry();
 
         while (true) {
-            var dateTimeTransactionMap = InMemoryRepository.DATE_TIME_TRANSACTION_MAP;
+            var dateTimeTransactionMap = InMemoryRepository.PRODUCER_DATE_TIME_TRANSACTION_MAP;
             Thread.sleep(1000);
             log.info("{}", dateTimeTransactionMap);
         }
