@@ -31,6 +31,21 @@
 - Код должен быть задокументирован;
 - Логируем все значимые кейсы;
 
+### Задание #4 (Надёжность доставки данных)
+- Необходимо доработать потребители Kafka (из задания 2) для возможности отправки подтверждения об успешной обработке событий через топик обратного потока;
+- Вариант подтверждения - подсчитывать контрольную сумму по идентификаторам сообщений на основе временных срезов;
+- Код должен быть задокументирован;
+- Логируем все значимые кейсы;
+
+### Задание #5 (Конвейер данных)
+- Изучить примеры файловых коннекторов в пакете sbp.school.kafka.connect;
+- По примеру реализовать connector-plugin (на выбор source или sink) для любой реляционной БД;
+- Для взаимодействия с БД можно использовать JDBC/Spring/Hibernate;
+- В результате у вас должен получиться конвейер из БД в файл или из файла в БД;
+- В качестве данных можно использовать транзакции из предыдущих заданий;
+- Код должен быть задокументирован;
+- Логируем все значимые кейсы;
+
 ### Ограничения
 - Не используем Spring или другие верхнеуровневые библиотеки.
 
@@ -44,3 +59,12 @@
 ### Условие успешной сдачи работы (критерии приемки)
 - Проект компилируется и запускается;
 - Результат review PR = approve.
+
+
+### Start
+1) Start ZOOKIPER bin/zookeeper-server-start.sh config/zookeeper.properties
+2) Start Kafka Server bin/kafka-server-start.sh config/server.properties
+3) Start Producer  bin/kafka-console-producer.sh --topic su_kafka --bootstrap-server localhost:9092          
+4) Start Consumer bin/kafka-console-consumer.sh --topic su_kafka --from-beginning --bootstrap-server localhost:9092
+5) Start Producer bin/kafka-console-producer.sh --topic confirm_kafka --bootstrap-server localhost:9092
+6) Start Consumer bin/kafka-console-consumer.sh --topic confirm_kafka --from-beginning --bootstrap-server localhost:9092
