@@ -46,6 +46,31 @@
 - Код должен быть задокументирован;
 - Логируем все значимые кейсы;
 
+### Задание #6* (Репликация данных)
+- Создать необходимый для запуска MirrorMaker файл конфигурации производителя;
+- Создать необходимый для запуска MirrorMaker файл конфигурации потребителя;
+- Написать скрипт запуска MirrorMaker с использованием утилиты kafka-mirror-maker.sh;
+- В скрипте запуска нужно учесть количество потоков, топики для репликации;
+
+### Задание #7* (Инструменты работы с Kafka)
+- В вашем распоряжении кластер с двумя брокерами и четырех партиций и фактором репликации = 2;
+- В процессе эксплуатации системы замечено, что партиции 0 и 2 более загружены, чем остальные;
+- Написать план (пошаговую инструкцию) выполнения смены распределения реплик партиций так, чтобы наиболее загруженные партиции были на разных брокерах (равномерное распределение нагрузки);
+- Необходимо учесть сохранение текущего состояния на случай необходимости отката конфигурации;
+
+### Задание #8* (Мониторинг Kafka)
+- Предоставить конфигурацию для запуска брокера Kafka с доступом к параметрам для мониторинга по JMX;
+
+### Задание #9* (Потоковая обработка)
+- Написать механизм обогащения событий транзакций данными по клиенту из БД;
+- В исходном топике в событии присутствует номер счета/карты;
+- В выходном топике у событий должно быть ФИО клиента;
+- Для реализации использовать Kafka Streams;
+- В качестве БД можно использовать любое хранилище данных;
+
+### Задание #10 (Тестирование Kafka)
+- Дописать модульные тесты на все производители и потребители, разработанные в рамках выполнения домашних работ;
+
 ### Ограничения
 - Не используем Spring или другие верхнеуровневые библиотеки.
 
@@ -68,3 +93,12 @@
 4) Start Consumer bin/kafka-console-consumer.sh --topic su_kafka --from-beginning --bootstrap-server localhost:9092
 5) Start Producer bin/kafka-console-producer.sh --topic confirm_kafka --bootstrap-server localhost:9092
 6) Start Consumer bin/kafka-console-consumer.sh --topic confirm_kafka --from-beginning --bootstrap-server localhost:9092
+
+### Для connectors:
+1) Start ZOOKIPER bin/zookeeper-server-start.sh config/zookeeper.properties
+2) Start Kafka Server bin/kafka-server-start.sh config/server.properties
+3) CLASSPATH=~/IdeaProjects/Sber-cources/kafka/kafka_2.13-3.9.0/libs/h2-2.3.232.jar bin/connect-distributed.sh config/connect-distributed.properties
+4) bin/kafka-console-consumer.sh --topic kafka-connector-topic --from-beginning --bootstrap-server localhost:9092
+5) В H2 создать таблицу и заполнить данными
+
+https://www.confluent.io/blog/kafka-connect-deep-dive-jdbc-source-connector/
