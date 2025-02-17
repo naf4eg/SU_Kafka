@@ -27,6 +27,10 @@ public class PropertiesReader {
         return readPropertiesByFileName("kafkaConfirmProducer.properties");
     }
 
+    public static Properties getKafkaConnectorsProperties() {
+        return readPropertiesByFileName("connectors.properties");
+    }
+
     public static Properties getAppProperties() {
         return readPropertiesByFileName("app.properties");
     }

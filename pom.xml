@@ -17,6 +17,8 @@
         <jackson-databind.version>2.18.1</jackson-databind.version>
         <json-schema-validator.version>1.4.0</json-schema-validator.version>
         <jsonschema-generator.version>4.31.1</jsonschema-generator.version>
+        <connect-api.version>3.6.0</connect-api.version>
+        <h2.version>2.1.214</h2.version>
     </properties>
 
     <dependencies>
@@ -61,6 +63,16 @@
             <groupId>com.github.victools</groupId>
             <artifactId>jsonschema-generator</artifactId>
             <version>${jsonschema-generator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>connect-api</artifactId>
+            <version>${connect-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
         </dependency>
     </dependencies>
 </project>
