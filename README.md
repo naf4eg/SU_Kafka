@@ -100,5 +100,15 @@
 3) CLASSPATH=~/IdeaProjects/Sber-cources/kafka/kafka_2.13-3.9.0/libs/h2-2.3.232.jar bin/connect-distributed.sh config/connect-distributed.properties
 4) bin/kafka-console-consumer.sh --topic kafka-connector-topic --from-beginning --bootstrap-server localhost:9092
 5) В H2 создать таблицу и заполнить данными
-
+6) POST запрос по url для создания коннектора http://localhost:8083/connectors
+   {
+       "name": "jdbc_source",
+       "config": {
+           "connector.class": "TransactionDBSourceConnector",
+           "connection.url": "jdbc:h2:~/transactions",
+           "connection.user": "sa",
+           "connection.password": "",
+           "topic.prefix": "kafka-connector-"
+       }
+   }
 https://www.confluent.io/blog/kafka-connect-deep-dive-jdbc-source-connector/
