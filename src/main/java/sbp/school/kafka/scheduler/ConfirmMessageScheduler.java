@@ -1,6 +1,7 @@
 package sbp.school.kafka.scheduler;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import sbp.school.kafka.model.ConfirmMessage;
 import sbp.school.kafka.model.Transaction;
 import sbp.school.kafka.producer.KafkaConfirmProducer;
@@ -8,10 +9,7 @@ import sbp.school.kafka.repository.InMemoryRepository;
 import sbp.school.kafka.utils.PropertiesReader;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.Properties;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -27,7 +25,7 @@ public class ConfirmMessageScheduler {
     private final Properties properties;
 
     public ConfirmMessageScheduler() {
-        this.kafkaConfirmProducer = new KafkaConfirmProducer();
+        this.kafkaConfirmProducer = new KafkaConfirmProducer(new KafkaProducer<>(PropertiesReader.getKafkaConfirmConsumerProperties()), PropertiesReader.getKafkaConfirmConsumerProperties());
         this.properties = PropertiesReader.getAppProperties();
     }
 
@@ -61,6 +59,7 @@ public class ConfirmMessageScheduler {
                 .stream()
                 .filter(transaction -> transaction.dateTime().isBefore(lagLastDt) || transaction.dateTime().isEqual(lagLastDt))
                 .toList();
+
 
         var startDt = transactionList.getFirst().dateTime();
         var endDt = transactionList.getLast().dateTime();

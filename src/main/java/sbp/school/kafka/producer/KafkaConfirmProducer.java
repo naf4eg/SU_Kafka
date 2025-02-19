@@ -1,6 +1,7 @@
 package sbp.school.kafka.producer;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import sbp.school.kafka.model.ConfirmMessage;
 import sbp.school.kafka.model.Transaction;
@@ -17,9 +18,11 @@ import java.util.Properties;
 @Slf4j
 public class KafkaConfirmProducer {
     private final Properties kafkaProperties;
+    private final Producer<String, ConfirmMessage> producer;
 
-    public KafkaConfirmProducer() {
-        this.kafkaProperties = PropertiesReader.getKafkaConfirmProducerProperties();
+    public KafkaConfirmProducer(Producer<String, ConfirmMessage> producer, Properties properties) {
+        this.kafkaProperties = properties;
+        this.producer = producer;
     }
 
     /**
@@ -28,14 +31,15 @@ public class KafkaConfirmProducer {
      * @param confirmMessage
      */
     public void sendAsync(ConfirmMessage confirmMessage) {
-        try (var producer = new org.apache.kafka.clients.producer.KafkaProducer<String, ConfirmMessage>(kafkaProperties)) {
+        try {
             var topicName = (String) kafkaProperties.get("topic");
-
             producer.send(new ProducerRecord<>(topicName, confirmMessage), ((metadata, exception) -> {
                 log.info("==> Sent new ConfirmMessage: {}", confirmMessage);
             }));
         } catch (Exception e) {
             log.error("", e);
+        }  finally {
+            producer.close();
         }
     }
 }
