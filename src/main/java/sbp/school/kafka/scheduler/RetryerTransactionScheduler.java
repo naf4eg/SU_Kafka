@@ -1,9 +1,11 @@
 package sbp.school.kafka.scheduler;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import sbp.school.kafka.model.Transaction;
 import sbp.school.kafka.producer.KafkaSUProducer;
 import sbp.school.kafka.repository.InMemoryRepository;
+import sbp.school.kafka.utils.PropertiesReader;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -20,7 +22,7 @@ public class RetryerTransactionScheduler {
     private final KafkaSUProducer kafkaSUProducer;
 
     public RetryerTransactionScheduler() {
-        this.kafkaSUProducer = new KafkaSUProducer();
+        this.kafkaSUProducer = new KafkaSUProducer(new KafkaProducer<>(PropertiesReader.getKafkaSUProducerProperties()), PropertiesReader.getKafkaConfirmConsumerProperties());
     }
 
     public void retry() {

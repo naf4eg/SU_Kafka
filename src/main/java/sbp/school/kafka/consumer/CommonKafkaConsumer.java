@@ -1,10 +1,7 @@
 package sbp.school.kafka.consumer;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.consumer.OffsetAndMetadata;
+import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
 import sbp.school.kafka.model.Transaction;
 
@@ -16,24 +13,24 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public abstract class CommonKafkaConsumer<K, V> {
 
-    protected final KafkaConsumer<K, V> consumer;
+    protected final Consumer<K, V> consumer;
     private final List<String> topics;
 
 
     private final Map<TopicPartition, OffsetAndMetadata> currentOffsets = new HashMap<>();
 
-    protected CommonKafkaConsumer(Properties properties) {
-        this.consumer = new KafkaConsumer<>(properties);
+    protected CommonKafkaConsumer(Consumer<K,V> consumer, Properties properties) {
+        this.consumer = consumer;
         this.topics = List.of(properties.getProperty("topic"));
     }
 
     public void consume() {
         try {
             consumer.subscribe(topics, getConsumerRebalanceListener());
-            consumer.poll(Duration.ofMillis(0));
-            consumer.assignment().forEach(this::initConsumerOffset);
+//            consumer.poll(Duration.ofMillis(0));
+//            consumer.assignment().forEach(this::initConsumerOffset);
             while (true) {
-                consumer.poll(Duration.ofMillis(10000))
+                consumer.poll(Duration.ofMillis(1000))
                         .forEach(this::processRecord);
                 consumer.commitAsync(currentOffsets, null);
             }
@@ -83,4 +80,7 @@ public abstract class CommonKafkaConsumer<K, V> {
         };
     }
 
+    public void stop() {
+        consumer.wakeup();
+    }
 }

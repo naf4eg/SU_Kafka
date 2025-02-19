@@ -1,7 +1,9 @@
 package sbp.school.kafka.consumer;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import sbp.school.kafka.model.ConfirmMessage;
 import sbp.school.kafka.model.Transaction;
 import sbp.school.kafka.repository.InMemoryRepository;
@@ -11,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.function.Function;
 
 /**
@@ -22,8 +25,8 @@ public class KafkaConfirmConsumer extends CommonKafkaConsumer<String, ConfirmMes
 
     private static final Map<LocalDateTime, Transaction> transactionByDateTime = InMemoryRepository.PRODUCER_DATE_TIME_TRANSACTION_MAP;
 
-    public KafkaConfirmConsumer() {
-        super(PropertiesReader.getKafkaConfirmConsumerProperties());
+    public KafkaConfirmConsumer(Consumer<String, ConfirmMessage> consumer, Properties properties) {
+        super(consumer, properties);
     }
 
 
@@ -45,7 +48,7 @@ public class KafkaConfirmConsumer extends CommonKafkaConsumer<String, ConfirmMes
         var ids = new ArrayList<String>();
         var dateTimes = new ArrayList<LocalDateTime>();
         transactionByDateTime.forEach((dateTime, transaction) -> {
-            if ((dateTime.isBefore(startDateTime) && dateTime.isAfter(endDateTime)) || (dateTime.isEqual(startDateTime) || dateTime.isEqual(endDateTime))) {
+            if ((dateTime.isBefore(endDateTime) && dateTime.isAfter(startDateTime)) || (dateTime.isEqual(startDateTime) || dateTime.isEqual(endDateTime))) {
                 ids.add(transaction.id().toString());
                 dateTimes.add(dateTime);
             }
